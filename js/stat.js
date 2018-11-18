@@ -9,6 +9,7 @@ var GAP = 10;
 var BAR_GAP = 50;
 var BAR_WIDTH = 40;
 var BAR_MAX_HEIGHT = 150;
+var FONT_STYLE = 'bold 16px PT Mono';
 var CLOUD_COLOR = '#ffffff';
 var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
 var SELF_BAR_COLOR = 'rgba(255, 0, 0, 1)';
@@ -50,7 +51,7 @@ var getPlayerColor = function (playerName) {
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_POSITION_X + GAP, CLOUD_POSITION_Y + GAP, SHADOW_COLOR);
   renderCloud(ctx, CLOUD_POSITION_X, CLOUD_POSITION_Y, CLOUD_COLOR);
-  ctx.font = 'bold 16px PT Mono';
+  ctx.font = FONT_STYLE;
   ctx.textBaseline = 'hanging';
   ctx.fillStyle = TEXT_COLOR;
   ctx.fillText('Ура вы победили!', CLOUD_POSITION_X + GAP * 3, CLOUD_POSITION_Y + GAP * 2);
