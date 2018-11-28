@@ -8,21 +8,46 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
 
-var firstNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var secondNames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var firstNames = [
+  'Иван',
+  'Хуан Себастьян',
+  'Мария',
+  'Кристоф',
+  'Виктор',
+  'Юлия',
+  'Люпита',
+  'Вашингтон'
+];
+var secondNames = [
+  'да Марья',
+  'Верон',
+  'Мирабелла',
+  'Вальц',
+  'Онопко',
+  'Топольницкая',
+  'Нионго',
+  'Ирвинг'
+];
+var coatColors = [
+  'rgb(101, 137, 164)',
+  'rgb(241, 43, 107)',
+  'rgb(146, 100, 161)',
+  'rgb(56, 159, 117)',
+  'rgb(215, 210, 55)',
+  'rgb(0, 0, 0)'
+];
 var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+var WIZARDS_MAX_NUMBER = 4;
 
 var wizards = [];
 var randomNames = [];
 
 var getRandomNumber = function (min, max) {
-  var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  return randomNumber;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 var getWizardName = function () {
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < WIZARDS_MAX_NUMBER; i++) {
     var randomFirstName = getRandomNumber(0, firstNames.length - 1);
     var randomSecondName = getRandomNumber(0, secondNames.length - 1);
     var name = firstNames[randomFirstName] + ' ' + secondNames[randomSecondName];
@@ -38,7 +63,7 @@ var getRandomWizard = function (property, array) {
 };
 
 var getWizards = function () {
-  for (var j = 0; j < 4; j++) {
+  for (var j = 0; j < WIZARDS_MAX_NUMBER; j++) {
     wizards.push({});
     getWizardName();
     wizards[j].name = getRandomWizard(wizards.name, randomNames);
