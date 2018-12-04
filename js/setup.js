@@ -1,5 +1,10 @@
 'use strict';
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var WIZARDS_MAX_NUMBER = 4;
+
 var setupBlock = document.querySelector('.setup');
 var setupBlockOpen = document.querySelector('.setup-open');
 var setupBlockClose = setupBlock.querySelector('.setup-close');
@@ -18,10 +23,6 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
 
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
-
-var WIZARDS_MAX_NUMBER = 4;
 var firstNames = [
   'Иван',
   'Хуан Себастьян',
@@ -57,16 +58,6 @@ var randomNames = [];
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-var shuffleArray = function (array) {
-  for (var j = array.length - 1; j > 0; j--) {
-    var randomNumber = Math.floor(Math.random() * (j + 1));
-    var temp = array[j];
-    array[j] = array[randomNumber];
-    array[randomNumber] = temp;
-  }
-  return array;
 };
 
 var getWizardName = function () {
@@ -134,14 +125,12 @@ var onPopupEscPress = function (evt) {
 };
 
 var randomColorOfSmth = function (attribute, array, input) {
-  shuffleArray(array);
-  input.setAttribute('value', array[0]);
-  return attribute + ': ' + array[0];
+  var randomColor = getRandomNumber(0, array.length);
+  input.setAttribute('value', array[randomColor]);
+  return attribute + ': ' + array[randomColor];
 };
 
-setupBlockOpen.addEventListener('click', function () {
-  openPopup();
-});
+setupBlockOpen.addEventListener('click', openPopup);
 
 setupBlockOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
@@ -149,9 +138,7 @@ setupBlockOpen.addEventListener('keydown', function (evt) {
   }
 });
 
-setupBlockClose.addEventListener('click', function () {
-  closePopup();
-});
+setupBlockClose.addEventListener('click', closePopup);
 
 setupBlockClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
@@ -159,9 +146,7 @@ setupBlockClose.addEventListener('keydown', function (evt) {
   }
 });
 
-setupBlockSubmit.addEventListener('click', function () {
-  submitForm();
-});
+setupBlockSubmit.addEventListener('click', submitForm);
 
 setupBlockSubmit.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
