@@ -5,6 +5,11 @@ var ENTER_KEYCODE = 13;
 
 var WIZARDS_MAX_NUMBER = 4;
 
+var SETUP_BLOCK_INITIAL_COORDS = {
+  top: '80px',
+  left: '50%'
+};
+
 var setupBlock = document.querySelector('.setup');
 var setupBlockOpen = document.querySelector('.setup-open');
 var setupBlockClose = setupBlock.querySelector('.setup-close');
@@ -104,7 +109,13 @@ similarListElement.appendChild(fragment);
 
 setupBlock.querySelector('.setup-similar').classList.remove('hidden');
 
+var setSetupBlockInitialCoords = function () {
+  setupBlock.style.top = SETUP_BLOCK_INITIAL_COORDS.top;
+  setupBlock.style.left = SETUP_BLOCK_INITIAL_COORDS.left;
+};
+
 var openPopup = function () {
+  setSetupBlockInitialCoords();
   setupBlock.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
 };
