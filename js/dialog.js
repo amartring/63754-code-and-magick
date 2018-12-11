@@ -25,24 +25,24 @@
     setupBlock.style.left = (setupBlock.offsetLeft - shift.x) + COORDS_UNITS;
   };
 
-  var checkIsDragged = function (dragged) {
-    if (dragged) {
-      var onClickPreventDefault = function (evt) {
-        evt.preventDefault();
-        dialogHandle.removeEventListener('click', onClickPreventDefault);
-      };
-      dialogHandle.addEventListener('click', onClickPreventDefault);
-    }
-  };
+  // var checkIsDragged = function (dragged) {
+  //   if (dragged) {
+  //     var onClickPreventDefault = function (evt) {
+  //       evt.preventDefault();
+  //       dialogHandle.removeEventListener('click', onClickPreventDefault);
+  //     };
+  //     dialogHandle.addEventListener('click', onClickPreventDefault);
+  //   }
+  // };
 
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-    var dragged = false;
+    // var dragged = false;
     var startCoords = calcStartCoords(evt);
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      dragged = true;
+      // dragged = true;
       var shift = calcShiftCoords(moveEvt, startCoords);
       startCoords = calcStartCoords(moveEvt);
       calcNewCoords(shift);
@@ -52,7 +52,7 @@
       upEvt.preventDefault();
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-      checkIsDragged(dragged);
+      // checkIsDragged(dragged);
     };
 
     document.addEventListener('mousemove', onMouseMove);

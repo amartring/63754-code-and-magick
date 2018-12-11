@@ -20,7 +20,7 @@
   var wizardEyesInput = document.querySelector('input[name = eyes-color]');
   var wizardfireballInput = document.querySelector('input[name = fireball-color]');
 
-  window.util.setupBlock.querySelector('.setup-similar').classList.remove('hidden');
+  document.querySelector('.setup-similar').classList.remove('hidden');
 
   var setSetupBlockInitialCoords = function () {
     window.util.setupBlock.style.top = SETUP_BLOCK_INITIAL_COORDS.top;
@@ -48,7 +48,7 @@
 
   var randomColorOfSmth = function (attribute, array, input) {
     var randomColor = window.util.getRandomNumber(0, array.length);
-    input.setAttribute('value', array[randomColor]);
+    input.value = array[randomColor];
     return attribute + ': ' + array[randomColor];
   };
 
