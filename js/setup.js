@@ -7,6 +7,7 @@
   };
   var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
+  var setupForm = window.util.setupBlock.querySelector('.setup-wizard-form');
   var setupBlockOpen = document.querySelector('.setup-open');
   var setupBlockClose = window.util.setupBlock.querySelector('.setup-close');
   var setupBlockSubmit = window.util.setupBlock.querySelector('.setup-submit');
@@ -79,5 +80,25 @@
 
   fireball.addEventListener('click', function () {
     fireball.setAttribute('style', randomColorOfSmth('background-color', fireballColors, wizardfireballInput));
+  });
+
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  var onPostSuccess = function () {
+    window.util.setupBlock.classList.add('hidden');
+  };
+
+  setupForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(setupForm), onPostSuccess, onError);
+    evt.preventDefault();
   });
 })();

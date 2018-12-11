@@ -1,14 +1,10 @@
 'use strict';
 (function () {
 
-  var HANDLE_AVAILABILITY = {
-    yes: 1,
-    no: 0
-  };
   var COORDS_UNITS = 'px';
 
   var setupBlock = document.querySelector('.setup');
-  var dialogHandle = setupBlock.querySelector('.setup-user-pic');
+  var dialogHandle = setupBlock.querySelector('.upload');
 
   var calcStartCoords = function (evt) {
     return {
@@ -39,18 +35,14 @@
     }
   };
 
-  dialogHandle.style.zIndex = HANDLE_AVAILABILITY.yes;
-
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var dragged = false;
-    dialogHandle.style.zIndex = HANDLE_AVAILABILITY.no;
     var startCoords = calcStartCoords(evt);
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
       dragged = true;
-      dialogHandle.style.zIndex = HANDLE_AVAILABILITY.yes;
       var shift = calcShiftCoords(moveEvt, startCoords);
       startCoords = calcStartCoords(moveEvt);
       calcNewCoords(shift);
