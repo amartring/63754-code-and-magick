@@ -5,6 +5,7 @@
   var ENTER_KEYCODE = 13;
 
   window.util = {
+    WIZARDS_MAX_NUMBER: 4,
     coatColors: [
       'rgb(101, 137, 164)',
       'rgb(241, 43, 107)',

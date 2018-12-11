@@ -82,23 +82,23 @@
     fireball.setAttribute('style', randomColorOfSmth('background-color', fireballColors, wizardfireballInput));
   });
 
-  var onError = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
-  };
+  // var onError = function (errorMessage) {
+  //   var node = document.createElement('div');
+  //   node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+  //   node.style.position = 'absolute';
+  //   node.style.left = 0;
+  //   node.style.right = 0;
+  //   node.style.fontSize = '30px';
+  //   node.textContent = errorMessage;
+  //   document.body.insertAdjacentElement('afterbegin', node);
+  // };
 
   var onPostSuccess = function () {
     window.util.setupBlock.classList.add('hidden');
   };
 
   setupForm.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(setupForm), onPostSuccess, onError);
+    window.backend.save(new FormData(setupForm), onPostSuccess, window.backend.onError);
     evt.preventDefault();
   });
 })();
