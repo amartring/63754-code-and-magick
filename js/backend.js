@@ -5,54 +5,88 @@
     load: 'https://js.dump.academy/code-and-magick/data',
     save: 'https://js.dump.academy/code-and-magick'
   };
-  var SUCCESS_CODE = 200;
   var CONNECT_TIME = 10000;
+  var TIME_UNIT = 'мс';
+  var Code = {
+    SUCCESS: 200,
+    MOVED_PERMANENTLY: 301,
+    FOUND: 302,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+    NOT_FOUND: 404,
+    SERVER: 500
+  };
+  var Error = {
+    CONNECT: 'Произошла ошибка соединения',
+    TIMEOUT: 'Запрос не успел выполниться за '
+  };
 
-  var load = function (onLoad, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+  var tuneObject = function (object, callback) {
+    object.responseType = 'json';
+    object.addEventListener('load', function () {
+      var error;
+      switch (object.status) {
+        case Code.SUCCESS:
+          callback(object.response);
+          break;
+        case Code.MOVED_PERMANENTLY:
+          error = 'Прощайте, неудачники, я сваливаю!';
+          break;
+        case Code.FOUND:
+          error = 'У меня там ремонт, пока живу у соседа на диване.';
+          break;
+        case Code.BAD_REQUEST:
+          error = 'Эм.. Что? Я не понимаю.. Что ты хочешь от меня?';
+          break;
+        case Code.UNAUTHORIZED:
+          error = 'Позвольте, мы с Вами не знакомы!';
+          break;
+        case Code.NOT_FOUND:
+          error = 'Упс! Все куда-то подевалось! О_о';
+          break;
+        case Code.SERVER:
+          error = 'Тут такие дела.. Ты не виноват, но я поломался :(';
+          break;
 
-    xhr.addEventListener('load', function () {
-      if (xhr.status === SUCCESS_CODE) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        default:
+          error = 'Cтатус ответа: : ' + object.status + ' ' + object.statusText;
+      }
+      if (error) {
+        onError(error);
       }
     });
+  };
 
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+  var connectError = function (object) {
+    object.addEventListener('error', function () {
+      onError(Error.CONNECT);
     });
+  };
 
-    xhr.timeout = CONNECT_TIME;
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+  var timeoutError = function (object) {
+    object.timeout = CONNECT_TIME;
+    object.addEventListener('timeout', function () {
+      onError(Error.TIMEOUT + object.timeout + TIME_UNIT);
     });
+  };
+
+  var load = function (onLoad) {
+    var xhr = new XMLHttpRequest();
+
+    tuneObject(xhr, onLoad);
+    connectError(xhr);
+    timeoutError(xhr);
 
     xhr.open('GET', URL.load);
     xhr.send();
   };
 
-  var save = function (data, onLoad, onError) {
+  var save = function (data, onLoad) {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
 
-    xhr.addEventListener('load', function () {
-      if (xhr.status === SUCCESS_CODE) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
-
-    xhr.timeout = CONNECT_TIME;
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
+    tuneObject(xhr, onLoad);
+    connectError(xhr);
+    timeoutError(xhr);
 
     xhr.open('POST', URL.save);
     xhr.send(data);
