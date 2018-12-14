@@ -48,7 +48,7 @@
     wizardCoatInput.value = newColor;
     wizardCoat.style.fill = newColor;
     coatColor = newColor;
-    updateWizards();
+    window.debounce(updateWizards);
   });
 
   wizardEyes.addEventListener('click', function () {
@@ -57,12 +57,12 @@
     wizardEyesInput.value = newColor;
     wizardEyes.style.fill = newColor;
     eyesColor = newColor;
-    updateWizards();
+    window.debounce(updateWizards);
   });
 
   var onGetSuccess = function (data) {
     wizards = data;
-    updateWizards();
+    window.debounce(updateWizards);
   };
 
   window.backend.load(onGetSuccess, window.backend.onError);
