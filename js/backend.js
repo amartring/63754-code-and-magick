@@ -6,6 +6,7 @@
     save: 'https://js.dump.academy/code-and-magick'
   };
   var SUCCESS_CODE = 200;
+  var CONNECT_TIME = 10000;
 
   var load = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -23,7 +24,7 @@
       onError('Произошла ошибка соединения');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = CONNECT_TIME;
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
@@ -48,7 +49,7 @@
       onError('Произошла ошибка соединения');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = CONNECT_TIME;
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
